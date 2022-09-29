@@ -21,6 +21,7 @@ import subprocess
 import argparse
 import tempfile
 import pathlib
+from mysql import connector
 
 class EmptyScans(Exception):
     pass
@@ -268,7 +269,12 @@ def main():
             parser.error("--upload_to_database requires -IP_address, -database_name, -main_table, and -bad_table.")  
         host_name = args.host_name
         database = args.database_name
-        connection_manager = rfitrends.connection_manager.connection_manager(host_name,database)     
+        #connection_manager = rfitrends.connection_manager.connection_manager(host_name,database)
+        user= os.environ['RFI_DB_USERNAME']
+        password = os.environ['RFI_DB_PASSWORD']
+        connector.connect(user=username, password=password,
+                    host=host,
+                    database=database)     
    
     if args.skipalreadyprocessed:
         skipalreadyprocessed = args.skipalreadyprocessed

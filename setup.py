@@ -14,7 +14,7 @@ from setuptools import find_packages, setup, Command
 # Package meta-data.
 NAME = 'GBT_RFI_pipeline'
 DESCRIPTION = 'A tool to automatically process GBT RFI data and output .txt files as well as optionally upload them to a given database.'
-URL = 'https://github.com/JoySkipper/GBT_RFI_pipeline'
+URL = 'https://github.com/GreenBankObservatory/GBT_RFI_pipeline'
 EMAIL = 'jskipper@nrao.edu'
 AUTHOR = 'Joy Skipper'
 REQUIRES_PYTHON = '>=3.5.0'
