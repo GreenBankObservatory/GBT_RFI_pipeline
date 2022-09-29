@@ -272,7 +272,7 @@ def main():
         #connection_manager = rfitrends.connection_manager.connection_manager(host_name,database)
         username= os.environ['RFI_DB_USERNAME']
         password = os.environ['RFI_DB_PASSWORD']
-        connector.connect(user=username, password=password,
+        connection_manager = connector.connect(user=username, password=password,
                     host=host_name,
                     database=database)     
    
