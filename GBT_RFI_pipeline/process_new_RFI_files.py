@@ -273,7 +273,7 @@ def main():
         username= os.environ['RFI_DB_USERNAME']
         password = os.environ['RFI_DB_PASSWORD']
         connector.connect(user=username, password=password,
-                    host=host,
+                    host=host_name,
                     database=database)     
    
     if args.skipalreadyprocessed:

@@ -18,7 +18,7 @@ URL = 'https://github.com/GreenBankObservatory/GBT_RFI_pipeline'
 EMAIL = 'jskipper@nrao.edu'
 AUTHOR = 'Joy Skipper'
 REQUIRES_PYTHON = '>=3.5.0'
-VERSION = "0.0.8"
+VERSION = "0.0.9"
 
 # What packages are required for this module to be executed?
 REQUIRED = [
