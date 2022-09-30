@@ -21,7 +21,7 @@ import subprocess
 import argparse
 import tempfile
 import pathlib
-from mysql import connector
+
 
 class EmptyScans(Exception):
     pass
