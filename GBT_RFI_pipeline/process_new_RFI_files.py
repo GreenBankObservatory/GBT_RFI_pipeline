@@ -269,12 +269,7 @@ def main():
             parser.error("--upload_to_database requires -IP_address, -database_name, -main_table, and -bad_table.")  
         host_name = args.host_name
         database = args.database_name
-        #connection_manager = rfitrends.connection_manager.connection_manager(host_name,database)
-        username= os.environ['RFI_DB_USERNAME']
-        password = os.environ['RFI_DB_PASSWORD']
-        connection_manager = connector.connect(user=username, password=password,
-                    host=host_name,
-                    database=database)     
+        connection_manager = rfitrends.connection_manager.connection_manager(host_name,database)
    
     if args.skipalreadyprocessed:
         skipalreadyprocessed = args.skipalreadyprocessed
