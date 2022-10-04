@@ -235,6 +235,7 @@ pro Ta2Flux, tau=tau, ap_eff=ap_eff
 
     effVctr = getApEff(elev, freqs, coeffs=ap_eff)
     !g.frozen = 1
+    print, "frozen 1 scanUtils"
     setdata, getdata(0) * exp(tauVctr*AirMass(elev))/(2.8 * effVctr )
     !g.s[0].units = "Jy"
 
@@ -278,6 +279,7 @@ function getForecastedTau, mjd, freqMHz
     ; Gets the forecasted opeacity from the weather data base for the list of MJD's and frequqncies freqMHz
     if freqMHz LE 2000 then return, 0.009
     !g.frozen = 1
+    print, "frozen 2 scanUtils"
     spawn, '/users/rmaddale/bin/getForecastValues -timeList ' + string(mjd) + ' -freqList ' + string( freqMHz/1000., /print) + ' | grep = | cut -f3 -d" "', tau
     return, tau
 end

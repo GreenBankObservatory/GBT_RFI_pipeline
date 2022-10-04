@@ -16,11 +16,13 @@ pro makegif,filename,notrim=notrim,reverse=reverse
     if n_elements(filename) eq 0 then filename = 'mygif.gif'
     print,'Making a GIF image in file ',filename
     !g.frozen = 1
+    print, "frozen 3 rfiDisplay"
     widget_control,mystate.main,/show
     reshow
     if n_elements(reverse) ne 0 then begin
         tmp = !g.background
         !g.frozen = 1
+        print, "frozen 4 rfiDisplay"
         !g.background = !g.foreground
         !g.foreground = tmp
         reshow
@@ -43,6 +45,7 @@ pro makegif,filename,notrim=notrim,reverse=reverse
     if n_elements(reverse) ne 0 then begin
         tmp = !g.background
         !g.frozen = 1
+        print, "frozen 5 rfiDisplay"
         !g.background = !g.foreground
         !g.foreground = tmp
         reshow
@@ -53,6 +56,7 @@ pro displayRFI
     hanning
     data0 = getdata()
     !g.frozen = 1
+    print, "frozen 6 rfiDisplay"
     setdata, abs(convol(0.5 * data0 * !g.s[0].tsys/mean(data0), digital_filter(0.1, 1, 200, 64)))
     !g.s[0].units = "Jy"
 end
@@ -90,6 +94,7 @@ pro getRFIScan, s1, plnum=plnum, ifnum=ifnum, fdnum=fdnum, instance=instance, nb
 
     if (n_elements(gain) eq 0 or gain[0] eq 0) then begin
         !g.frozen = 1
+    print, "frozen 7 rfiDisplay"
         gettp,s1,plnum=plnum,ifnum=ifnum,fdnum=fdnum,instance=instance,cal_state=1,intnum=intnum, /quiet & hanning
 
         nchans = n_elements(getdata(0))
@@ -104,6 +109,7 @@ pro getRFIScan, s1, plnum=plnum, ifnum=ifnum, fdnum=fdnum, instance=instance, nb
         ; on[5000]=10.
 
         !g.frozen = 1
+        print, "frozen 8 rfiDisplay"
         gettp,s1,plnum=plnum,ifnum=ifnum,fdnum=fdnum,instance=instance,cal_state=0,intnum=intnum, /quiet & hanning 
 
         if keyword_set(blnkFreqs) then begin
@@ -119,6 +125,7 @@ pro getRFIScan, s1, plnum=plnum, ifnum=ifnum, fdnum=fdnum, instance=instance, nb
  
     endif else begin
         !g.frozen = 1
+        print, "frozen 9 rfiDisplay"
         gettp,s1,plnum=plnum,ifnum=ifnum,fdnum=fdnum,instance=instance,intnum=intnum, /quiet & hanning
 
         if keyword_set(blnkFreqs) then begin
@@ -156,6 +163,7 @@ pro getRFITP, s1, plnum=plnum, ifnum=ifnum, fdnum=fdnum, instance=instance, fltr
     end
 
     !g.frozen = 1
+    print, "frozen 10 rfiDisplay"
     gettp,s1,plnum=plnum,ifnum=ifnum,fdnum=fdnum,instance=instance,intnum=intnum, /quiet & hanning
     nchans=n_elements(getdata())
 
@@ -247,6 +255,7 @@ pro flagFreqs
     endwhile
     free_lun, lun
     !g.frozen = 1
+    print, "frozen 11 rfiDisplay"
     reshow
 end
 
@@ -305,6 +314,7 @@ pro writeDC, filename, buffer=buffer, freqMin=freqMin, freqMax=freqMax, output_f
 
     ; Retrieve X and Y arrays.  Sort data according to frequency.
     !g.frozen = 1
+    print, "frozen 12 rfiDisplay"
     unzoom
     show, buffer
     x = getxarray()
@@ -333,6 +343,7 @@ function calseq,scan,tcold=tcold,ifnum=ifnum,plnum=plnum,fdnum=fdnum
     if (n_elements(tcold) eq 0) then tcold = 54.
 
     !g.frozen = 1
+    print, "frozen 13 rfiDisplay"
     gettp,scan,plnum=plnum,fdnum=fdnum,ifnum=ifnum,quiet=1,wcalpos='Observing'
     vsky=getdata(0)
     twarm=!g.s[0].twarm
@@ -465,9 +476,11 @@ FUNCTION rfiScans_Mod, scanList, ifmax=ifmax, fdnum=fdnum, intnum=intnum, nzoom=
     ; Get the first scan so as to determine a filename, number of channels
     if keyword_set(ka) then begin
         !g.frozen = 1
+        print, "frozen 14 rfiDisplay"
         gettp, scanList(0), plnum=0, fdnum=1, instance=instance, /quiet
     endif else begin
         !g.frozen = 1
+        print, "frozen 15 rfiDisplay"
         gettp, scanList(0), plnum=0, fdnum=fdnum, instance=instance, /quiet
     end
 
@@ -499,9 +512,11 @@ FUNCTION rfiScans_Mod, scanList, ifmax=ifmax, fdnum=fdnum, intnum=intnum, nzoom=
         for ifTest = 0, ifs[nplots] do begin
             if keyword_set(ka) then begin
                 !g.frozen = 1
+                print, "frozen 16 rfiDisplay"
                 gettp, s1, plnum=0, fdnum=1, ifnum=ifTest, intnum=0, instance=instance, /quiet
             endif else begin
                 !g.frozen = 1
+                print, "frozen 17 rfiDisplay"
                 gettp, s1, plnum=0, fdnum=fdnum, ifnum=ifTest, intnum=0, instance=instance, /quiet
             end
             cntrFreq(ifTest) = chantox(0)
@@ -622,6 +637,7 @@ FUNCTION rfiScans_Mod, scanList, ifmax=ifmax, fdnum=fdnum, intnum=intnum, nzoom=
 
     ; Blank out the data that is beyond the overlaps.   Then, plot up the various DC's 
     !g.frozen = 1
+    print, "frozen 18 rfiDisplay"
     set_data_container, dc_Arr[0]
     replace, 0, c0(0), /blank
     replace, c1(0), nchans-1, /blank
@@ -631,6 +647,7 @@ FUNCTION rfiScans_Mod, scanList, ifmax=ifmax, fdnum=fdnum, intnum=intnum, nzoom=
     iclr = 0
     for ifn = 0, nplots do begin
         !g.frozen = 1
+        print, "frozen 19 rfiDisplay"
         set_data_container, dc_Arr[ifn]
         replace, 0, c0(ifn), /blank
         replace, c1(ifn), nchans-1, /blank
@@ -705,6 +722,7 @@ FUNCTION rfiScans_Mod, scanList, ifmax=ifmax, fdnum=fdnum, intnum=intnum, nzoom=
 
             ; Retrieve X and Y arrays.  Sort data according to frequency.
             !g.frozen = 1
+            print, "frozen 19 rfiDisplay"
             unzoom
             show
             setx, min(xmin), max(xmax)
